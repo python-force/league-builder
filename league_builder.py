@@ -12,6 +12,13 @@ json_filename = csv_filename.split(".")[0] + ".json"
 experienced = []
 inexperienced = []
 
+# Instance Variables for 3 teams / lists
+# Setting number of Teams
+TEAMS = 3
+team_one = []
+team_two = []
+team_three = []
+
 # Function for CSV to JSON conversion
 def csv_to_json():
     try:
@@ -36,8 +43,24 @@ def experience_level():
     except:
         print("The file that you have specified has not been found, please try again.")
 
+# Function for creating 3 teams based on experience
+def create_teams_based_on_experience(experienced, inexperienced):
+    team_one.extend(experienced[:TEAMS])
+    team_one.extend(inexperienced[:TEAMS])
+    team_two.extend(experienced[TEAMS:TEAMS*2])
+    team_two.extend(inexperienced[TEAMS:TEAMS*2])
+    team_three.extend(experienced[TEAMS*2:TEAMS*3])
+    team_three.extend(inexperienced[TEAMS*2:TEAMS*3])
+
 # Converting data CSV to JSON
 csv_to_json()
 
 # Dividing experienced and inexperienced players
 experience_level()
+
+# Creating 3 teams based on same experience level
+create_teams_based_on_experience(experienced, inexperienced)
+
+# Checking the results
+for i in range(0, len(team_one)):
+    print(team_one[i]['Name'] + " " + team_one[i]['Soccer Experience'] + " " + team_one[i]['Guardian Name(s)'])
