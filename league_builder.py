@@ -52,6 +52,11 @@ def create_teams_based_on_experience(experienced, inexperienced):
     team_three.extend(experienced[TEAMS*2:TEAMS*3])
     team_three.extend(inexperienced[TEAMS*2:TEAMS*3])
 
+# Function for writing the teams into the file
+def list_of_teams():
+    with open("teams.txt", "w") as file:
+        file.write("hello")
+
 # Converting data CSV to JSON
 csv_to_json()
 
@@ -60,6 +65,9 @@ experience_level()
 
 # Creating 3 teams based on same experience level
 create_teams_based_on_experience(experienced, inexperienced)
+
+# Write list of teams to teams.txt file
+list_of_teams()
 
 # Checking the results
 for i in range(0, len(team_one)):
