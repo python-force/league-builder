@@ -58,7 +58,10 @@ def create_teams_based_on_experience(experienced, inexperienced):
 # Function for writing the teams into the file
 def list_of_teams(*args):
     teams = args
-    team_dict = {TEAM_ONE_NAME:teams[0], TEAM_TWO_NAME:teams[1], TEAM_THREE_NAME:teams[2]}
+    team_name_list = [TEAM_ONE_NAME, TEAM_TWO_NAME, TEAM_THREE_NAME]
+    team_dict = {}
+    for i in range(0, len(team_name_list)):
+        team_dict[team_name_list[i]] = teams[i]
     with open("teams.txt", "w") as file:
         for key, values in team_dict.items():
             file.write("=" * 41 + "\n")
@@ -79,6 +82,7 @@ experience_level()
 create_teams_based_on_experience(experienced, inexperienced)
 
 # Write list of teams to teams.txt file
+
 list_of_teams(team_one, team_two, team_three)
 
 # Checking the results
