@@ -56,13 +56,18 @@ def create_teams_based_on_experience(experienced, inexperienced):
     team_three.extend(inexperienced[TEAMS*2:TEAMS*3])
 
 # Function for writing the teams into the file
-def list_of_teams(team_one, team_two, team_three):
+def list_of_teams(*args):
+    teams = args
+    team_dict = {TEAM_ONE_NAME:teams[0], TEAM_TWO_NAME:teams[1], TEAM_THREE_NAME:teams[2]}
     with open("teams.txt", "w") as file:
-        file.write(TEAM_ONE_NAME + "\n")
-        for player in team_one:
-            file.write(player["Name"] + ", ")
-            file.write(player["Soccer Experience"] + ", ")
-            file.write(player["Guardian Name(s)"] + "\n")
+        for key, values in team_dict.items():
+            file.write("=" * 41 + "\n")
+            file.write(key + "\n")
+            for player in values:
+                file.write(player["Name"] + ", ")
+                file.write(player["Soccer Experience"] + ", ")
+                file.write(player["Guardian Name(s)"] + "\n")
+            file.write("=" * 41 + "\n\n")
 
 # Converting data CSV to JSON
 csv_to_json()
