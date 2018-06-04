@@ -2,26 +2,6 @@
 import csv
 import json
 
-# Specifying the Instance Variables / Defaults
-# Specify the file where to read the players data from
-# Converting data from CSV to JSON
-csv_filename = input("Specify the file that you wish to process: ")
-json_filename = csv_filename.split(".")[0] + ".json"
-
-# Experienced and Inexperienced groups / lists inits
-experienced = []
-inexperienced = []
-
-# Instance Variables for 3 teams / lists
-# Setting number of Teams
-TEAMS = 3
-team_one = []
-team_two = []
-team_three = []
-TEAM_ONE_NAME = "Sharks"
-TEAM_TWO_NAME = "Dragons"
-TEAM_THREE_NAME = "Raptors"
-
 # Function for CSV to JSON conversion
 def csv_to_json():
     try:
@@ -56,6 +36,8 @@ def create_teams_based_on_experience(experienced, inexperienced):
     team_three.extend(inexperienced[TEAMS*2:TEAMS*3])
 
 # Function for writing the teams into the file
+# Tuple of teams
+# Creating dictionary from names and teams
 def list_of_teams(*args):
     teams = args
     team_name_list = [TEAM_ONE_NAME, TEAM_TWO_NAME, TEAM_THREE_NAME]
@@ -72,19 +54,40 @@ def list_of_teams(*args):
                 file.write(player["Guardian Name(s)"] + "\n")
             file.write("=" * 41 + "\n\n")
 
-# Converting data CSV to JSON
-csv_to_json()
+# Script doesn't execute when imported
+if __name__ == '__main__':
+    # Specifying the Instance Variables / Defaults
+    # Specify the file where to read the players data from
+    # Converting data from CSV to JSON
+    csv_filename = input("Specify the file that you wish to process: ")
+    json_filename = csv_filename.split(".")[0] + ".json"
 
-# Dividing experienced and inexperienced players
-experience_level()
+    # Experienced and Inexperienced groups / lists inits
+    experienced = []
+    inexperienced = []
 
-# Creating 3 teams based on same experience level
-create_teams_based_on_experience(experienced, inexperienced)
+    # Instance Variables for 3 teams / lists
+    # Setting number of Teams
+    TEAMS = 3
+    team_one = []
+    team_two = []
+    team_three = []
+    TEAM_ONE_NAME = "Sharks"
+    TEAM_TWO_NAME = "Dragons"
+    TEAM_THREE_NAME = "Raptors"
 
-# Write list of teams to teams.txt file
+    # Converting data CSV to JSON
+    csv_to_json()
 
-list_of_teams(team_one, team_two, team_three)
+    # Dividing experienced and inexperienced players
+    experience_level()
 
-# Checking the results
-for i in range(0, len(team_one)):
-    print(team_one[i]['Name'] + " " + team_one[i]['Soccer Experience'] + " " + team_one[i]['Guardian Name(s)'])
+    # Creating 3 teams based on same experience level
+    create_teams_based_on_experience(experienced, inexperienced)
+
+    # Write list of teams to teams.txt file
+    list_of_teams(team_one, team_two, team_three)
+
+    # Checking the results
+    for i in range(0, len(team_one)):
+        print(team_one[i]['Name'] + " " + team_one[i]['Soccer Experience'] + " " + team_one[i]['Guardian Name(s)'])
