@@ -11,31 +11,38 @@ def csv_to_json():
             rows = list(soccer_reader)
             with open(json_filename, 'w') as soccerfile:
                 json.dump(rows, soccerfile)
+        return True
     except:
-        print("The file that you have specified has not been found, please try again.")
+        print("The CSV file that you have specified has not been found, please try again.")
+        return False
 
 # Function for dividing experienced and inexperienced players
 def create_teams():
-    with open(json_filename, 'r') as soccer:
-        players = json.load(soccer)
-        if ((len(players) % 3) == 0):
-            for player in players:
-                if player["Soccer Experience"] == "YES":
-                    experienced.append(player)
-                else:
-                    inexperienced.append(player)
+    try:
+        with open(json_filename, 'r') as soccer:
+            players = json.load(soccer)
+            # Check if the file has enough players to equally divide players into 3 teams
+            if ((len(players) % 3) == 0):
+                for player in players:
+                    if player["Soccer Experience"] == "YES":
+                        experienced.append(player)
+                    else:
+                        inexperienced.append(player)
 
-            team_one.extend(experienced[:TEAMS])
-            team_one.extend(inexperienced[:TEAMS])
-            team_two.extend(experienced[TEAMS:TEAMS * 2])
-            team_two.extend(inexperienced[TEAMS:TEAMS * 2])
-            team_three.extend(experienced[TEAMS * 2:TEAMS * 3])
-            team_three.extend(inexperienced[TEAMS * 2:TEAMS * 3])
-        else:
-            print("You have provided a file with unequal amount of players to be sufficient for {} teams".format(TEAMS))
+                team_one.extend(experienced[:TEAMS])
+                team_one.extend(inexperienced[:TEAMS])
+                team_two.extend(experienced[TEAMS:TEAMS * 2])
+                team_two.extend(inexperienced[TEAMS:TEAMS * 2])
+                team_three.extend(experienced[TEAMS * 2:TEAMS * 3])
+                team_three.extend(inexperienced[TEAMS * 2:TEAMS * 3])
+            else:
+                print("You have provided a file with unequal amount of players to be sufficient for {} teams".format(TEAMS))
+    except:
+        print("The JSON file that you have specified has not been found, please try again.")
 
 
 # Creating dictionary from names and teams
+# Dict will be reused in 2 functions
 def team_dictionary(*args):
     teams = args
     team_name_list = [TEAM_ONE_NAME, TEAM_TWO_NAME, TEAM_THREE_NAME]
@@ -74,24 +81,30 @@ if __name__ == '__main__':
     csv_filename = input("Specify the filename that you wish to process: ")
     json_filename = csv_filename.split(".")[0] + ".json"
 
-    # Experienced and Inexperienced groups / lists inits
-    experienced = []
-    inexperienced = []
+    # Converting data CSV to JSON
+    # Checking if the CSV exists, if NO then quit the app
+    csv_check = csv_to_json()
 
-    # Instance Variables for 3 teams / lists
-    # Setting number of Teams
-    TEAMS = 3
-    team_one = []
-    team_two = []
-    team_three = []
-    TEAM_ONE_NAME = input("Pick a name for team 1: ")
-    TEAM_TWO_NAME = input("Pick a name for team 2: ")
-    TEAM_THREE_NAME = input("Pick a name for team 3: ")
-    team_dict = {}
+    # If CSV is valid, proceed to process the file
+    if csv_check:
+        # Experienced and Inexperienced groups / lists inits
+        experienced = []
+        inexperienced = []
 
-    DIRECTORY = "letters"
-    LETTER = """Dear {},
-    
+        # Instance Variables for 3 teams / lists
+        # Setting number of Teams
+        TEAMS = 3
+        team_one = []
+        team_two = []
+        team_three = []
+        TEAM_ONE_NAME = input("Pick a name for team 1: ")
+        TEAM_TWO_NAME = input("Pick a name for team 2: ")
+        TEAM_THREE_NAME = input("Pick a name for team 3: ")
+        team_dict = {}
+
+        DIRECTORY = "letters"
+        LETTER = """Dear {},
+        
 {}, was selected for the team {}. 
 Next week on Tuesday 24th of July 2049 will the first practice.
     
@@ -99,14 +112,11 @@ Best Regards
 Your Coach
 """
 
-    # Converting data CSV to JSON
-    csv_to_json()
+        # Create teams based on experience level
+        create_teams()
 
-    # Create teams based on experience level
-    create_teams()
+        # Write list of teams to teams.txt file
+        list_of_teams(team_one, team_two, team_three)
 
-    # Write list of teams to teams.txt file
-    list_of_teams(team_one, team_two, team_three)
-
-    # Write a letter to each player
-    letter_to_player(team_one, team_two, team_three)
+        # Write a letter to each player
+        letter_to_player(team_one, team_two, team_three)

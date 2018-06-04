@@ -1,5 +1,5 @@
 =========================================
-A
+Sharks
 Joe Smith, YES, Jim and Jan Smith
 Jill Tanner, YES, Clara Tanner
 Bill Bon, YES, Sara and Jenny Bon
@@ -9,7 +9,7 @@ Kimmy Stein, NO, Bill and Hillary Stein
 =========================================
 
 =========================================
-B
+Dragons
 Karl Saygan, YES, Heather Bledsoe
 Suzane Greenberg, YES, Henrietta Dumas
 Diego Soto, YES, Robin and Sarika Soto
@@ -19,7 +19,7 @@ Joe Kavalier, NO, Sam and Elaine Kavalier
 =========================================
 
 =========================================
-C
+Raptors
 Phillip Helm, YES, Thomas Helm and Eva Jones
 Les Clay, YES, Wynonna Brown
 Herschel Krustofski, YES, Hyman and Rachel Krustofski
