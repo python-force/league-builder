@@ -87,7 +87,3 @@ if __name__ == '__main__':
 
     # Write list of teams to teams.txt file
     list_of_teams(team_one, team_two, team_three)
-
-    # Checking the results
-    for i in range(0, len(team_one)):
-        print(team_one[i]['Name'] + " " + team_one[i]['Soccer Experience'] + " " + team_one[i]['Guardian Name(s)'])
