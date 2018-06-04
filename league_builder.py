@@ -34,15 +34,18 @@ def create_teams():
         else:
             print("You have provided a file with unequal amount of players to be sufficient for {} teams".format(TEAMS))
 
-# Function for writing the teams into the file
-# Tuple of teams
+
 # Creating dictionary from names and teams
-def list_of_teams(*args):
+def team_dictionary(*args):
     teams = args
     team_name_list = [TEAM_ONE_NAME, TEAM_TWO_NAME, TEAM_THREE_NAME]
-    team_dict = {}
     for i in range(0, len(team_name_list)):
         team_dict[team_name_list[i]] = teams[i]
+
+# Function for writing the teams into the file
+# Tuple of teams
+def list_of_teams(*args):
+    team_dictionary(*args)
     with open("teams.txt", "w") as file:
         for key, values in team_dict.items():
             file.write("=" * 41 + "\n")
@@ -55,14 +58,13 @@ def list_of_teams(*args):
 
 # Function for writing a letter to each player
 def letter_to_player(*args):
-    teams = args
     if not os.path.exists(DIRECTORY):
         os.makedirs(DIRECTORY)
-    for i in range(0, len(teams)):
-        for player in teams[i]:
+    for key, values in team_dict.items():
+        for player in values:
             filename = player["Name"].replace(' ', '_').lower() + ".txt"
             with open(DIRECTORY + "/" + filename, "w") as file:
-                file.write(LETTER.format(player["Name"]))
+                file.write(LETTER.format(player["Guardian Name(s)"], player["Name"], key))
 
 # Script doesn't execute when imported
 if __name__ == '__main__':
@@ -85,12 +87,17 @@ if __name__ == '__main__':
     TEAM_ONE_NAME = input("Pick a name for team 1: ")
     TEAM_TWO_NAME = input("Pick a name for team 2: ")
     TEAM_THREE_NAME = input("Pick a name for team 3: ")
+    team_dict = {}
 
     DIRECTORY = "letters"
     LETTER = """Dear {},
     
-
-    """
+{}, was selected for the team {}. 
+Next week on Tuesday 24th of July 2049 will the first practice.
+    
+Best Regards
+Your Coach
+"""
 
     # Converting data CSV to JSON
     csv_to_json()
