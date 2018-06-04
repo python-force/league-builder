@@ -106,7 +106,7 @@ if __name__ == '__main__':
         LETTER = """Dear {},
         
 {}, was selected for the team {}. 
-Next week on Tuesday 24th of July 2049 will the first practice.
+Next week on Tuesday 24th of July 2049 will be the first practice.
     
 Best Regards
 Your Coach
